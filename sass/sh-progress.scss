@@ -1,0 +1,221 @@
+// Colors
+$pw-incomplete: white !default;
+$pw-complete: black !default;
+$pw-active: #337AB7 !default;
+$pw-hover: #5671d0 !default;
+$pw-step-danger: #d3140f !default;
+$pw-step-warning: #edb10a !default;
+$pw-step-info: #5b32d6 !default;
+$pw-bg-color: #FFC000 !default;
+
+// Sizing
+$pw-bubble-size: 1px !default;
+$pw-bubble-line-thickness: 3px !default;
+$pw-border-thickness: 1px !default;
+$pw-darken-amount: 30% !default;
+
+// Mobile
+$pw-mobile-size: 400px !default;
+
+@mixin bubble-style($color) {
+    background-color: $color;
+    color: $color;
+    border-color: darken($color, $pw-darken-amount);
+    &:before,
+    &:after {
+        background-color: $color;
+        border-color: darken($color, $pw-darken-amount);
+    }
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    padding: 20px;
+}
+.container {
+    width: 70%;
+    margin: auto;
+    background-color: #FFC000;
+}
+a {
+    color: #406753;
+    text-decoration: none;
+    border-bottom: 1px dotted #999;
+}
+a:hover {
+    color: black;
+    border-color: black;
+}
+hr {
+    opacity: 0.3;
+}
+h1 {
+    font-size: 50px;
+}
+h3 {
+    border-left: 12px solid #f1f1f1;
+    text-indent: 1em;
+    color: #999;
+    margin-top: 2em;
+    font-weight: 100;
+}
+ul {
+    margin: 0;
+    padding: 0.4em;
+    list-style-type: square;
+}
+li {
+    padding-left: 0.5em;
+    line-height: 2.4em;
+}
+code {
+    font-family: Monaco, Consolas, "Lucida Console", monospace;
+    background-color: #f1f1f1;
+    font-size: 70%;
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+}
+.subdued {
+    font-size: 80%;
+    opacity: 0.6;
+}
+
+.flexer {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+.no-flexer {
+    display: block;
+}
+.no-flexer-element {
+    -ms-flex: 0;
+    -webkit-flex: 0;
+    -moz-flex: 0;
+    flex: 0;
+}
+.flexer-element {
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    flex: 1;
+}
+.progress-indicator.custom-complex {
+    background-color: #FFC000;
+    padding: 25px 10px 10px 10px;
+}
+.text {
+    color: black;
+}
+.progress-indicator.custom-complex > li .bubble {
+    height: 3px;
+    width: 100%;
+    border-radius: 0;
+}
+.progress-indicator.custom-complex > li .bubble:before,
+.progress-indicator.custom-complex > li .bubble:after {
+    display: none;
+}
+.progress-indicator {
+    @extend .flexer;
+    margin: 0;
+    padding: 0;
+    font-size: 80%;
+    text-transform: uppercase;
+    margin-bottom: 1em;
+    > li {
+        @extend .flexer-element;
+        list-style: none;
+        text-align: center;
+        width: auto;
+        padding: 0;
+        margin: 0;
+        position: relative;
+        text-overflow: ellipsis;
+        color: $pw-incomplete;
+        display: block;
+        &:hover {
+            color: darken($pw-incomplete, $pw-darken-amount);
+        }
+    }
+    li:first-child {
+        text-align: left;
+    }
+    li:last-child {
+        text-align: right;
+    }
+    > li .bubble {
+        border-radius: 1000px;
+        width: $pw-bubble-size;
+        height: $pw-bubble-size;
+        background-color: $pw-incomplete;
+        display: block;
+        margin: 0 auto 0.5em auto;
+        border-bottom: $pw-border-thickness solid darken($pw-incomplete, 20%);
+    }
+
+    // line connectors
+
+    > li .bubble:before,
+    > li .bubble:after {
+        display: block;
+        position: absolute;
+        top: $pw-bubble-size / 2 - $pw-border-thickness;
+        width: 100%;
+        height: $pw-bubble-line-thickness;
+        content: '';
+        background-color: $pw-incomplete;
+    }
+    > li .bubble:before {
+        left: 0;
+    }
+    > li .bubble:after {
+        right: 0;
+    }
+
+    > li:first-child .bubble:before,
+    > li:first-child .bubble:after {
+        width: 50%;
+        margin-left: 50%;
+    }
+
+    > li:last-child .bubble:before,
+    > li:last-child .bubble:after {
+        width: 50%;
+        margin-right: 50%;
+    }
+
+
+    // completed state
+
+    > li.completed {
+        color: $pw-complete;
+        .bubble {
+            @include bubble-style($pw-complete);
+        }
+    }
+
+    // current state
+
+    > li.active {
+        color: $pw-active;
+        .bubble {
+            @include bubble-style($pw-active);
+        }
+    }
+
+    // button states
+
+    > li a:hover .bubble {
+        @include bubble-style($pw-hover);
+    }
+}
+
+@media handheld, screen and (max-width: $pw-mobile-size) {
+    .progress-indicator {
+        font-size: 60%;
+    }
+}

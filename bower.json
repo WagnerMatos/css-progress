@@ -1,0 +1,14 @@
+{
+  "name": "css-sh-progress",
+  "description": "Sh24 coding test",
+  "main": "css/sh-progress.min.css",
+  "license": "MIT",
+  "homepage": "https://github.com/WagnerMatos/css-progress",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
